@@ -21,7 +21,13 @@ function TodasLasPeliculas() {
 }
 
 function filtrarPorGenero(peliculas, genero) {
-    return peliculas.filter(pelicula => pelicula.genero.toLowerCase() === genero.toLowerCase());
+    let peliculasFiltradas = [];
+    for (let i = 0; i < peliculas.length; i++) {
+        if (peliculas[i].genero.toLowerCase() === genero.toLowerCase()) {
+            peliculasFiltradas.push(peliculas[i]);
+        }
+    }
+    return peliculasFiltradas;
 }
 
 function mostrarMensajePeliculas(peliculas) {
@@ -33,7 +39,6 @@ function mostrarMensajePeliculas(peliculas) {
     }
     return mensajePeliculas;
 }
-
 
 function comprarPelicula(pelicula) {
     alert(`Has comprado "${pelicula.Titulo}" por $${pelicula.Precio}. ¡Gracias por tu compra!`);
@@ -87,6 +92,7 @@ function ObtenerPeliculas(){
 }
 
 ObtenerPeliculas();
+
 
 
 
