@@ -1,12 +1,13 @@
 const contenedorTarjetas=document.getElementById("peliculasContainer");
 contenedorTarjetas.classList.add("carrito-peliculas");
 const cantidadElement=document.getElementById("cantidad")
-const precioElementos=document.getElementById("precio")
+const precioElement=document.getElementById("precio")
+const carritoVacioElement=document.getElementById("carritoVacio")
+const totalesElement=document.getElementById("totales")
 
 function crearTarjetasInicio(){
     contenedorTarjetas.innerHTML="";
     const productos=JSON.parse(localStorage.getItem("peliculas"))
-    console.log(productos)
     if(productos && productos.length>0){
         productos.forEach(producto => {
             const nuevaPelicula=document.createElement("div");
@@ -21,25 +22,32 @@ function crearTarjetasInicio(){
                     <button>+</button>
                 </div>
             `
-            contenedorTarjetas.appendChild(nuevaPelicula)
-            nuevaPelicula.getElementsByTagName("button")[1].addEventListener("click",(e)=>{
+            contenedorTarjetas.appendChild(nuevaPelicula);
+            nuevaPelicula
+                .getElementsByTagName("button")[0]
+                .addEventListener("click",(e)=>{
+                    const cuentaE=e.target.parentElement.getElementsByTagName("span")[0];
+                    cuentaE.innerText=restarAlCarrito(producto);
+                    crearTarjetasInicio();
+                    actualizarTot()
+            });
+            nuevaPelicula
+            .getElementsByTagName("button")[1]
+            .addEventListener("click",(e)=>{
                 const cuentaE= e.target.parentElement.getElementsByTagName("span")[0];
                 cuentaE.innerText=agregarAlCarrito(producto);
                 actualizarTot();
-            })
-
-            nuevaPelicula.getElementsByTagName("button")[0].addEventListener("click",(e)=>{
-                restarAlCarrito(producto);
-                crearTarjetasInicio();
-                actualizarTot()
             });
 
     });
 }
-
+revisarMensajeInvicible();
+actualizarTot()
+actualizarNumeroCarrito();
 }
 crearTarjetasInicio();
-actualizarTot()
+
+
 
 function actualizarTot(){
     const productos=JSON.parse(localStorage.getItem("peliculas"))
@@ -51,8 +59,23 @@ function actualizarTot(){
             precio+=producto.precio * producto.cantidad;
         })
         cantidadElement.innerText=cantidad;
-        precioElementos.innerText=precio;
+        precioElement.innerText=precio;
+        if (precio===0){
+            reiniciarCarrito();
+            revisarMensajeInvicible();
+        }
     }
 
 }
 
+document.getElementById("reiniciar").addEventListener("click",()=>{
+    contenedorTarjetas.innerHTML="";
+    reiniciarCarrito();
+    revisarMensajeInvicible();
+})
+
+function revisarMensajeInvicible (){
+    const productos=JSON.parse(localStorage.getItem("peliculas"))
+    carritoVacioElement.classList.toggle("invisible",productos)
+    totales.classList.toggle("invisible",!productos );
+}

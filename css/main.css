@@ -118,13 +118,84 @@ header nav img{
     gap: 10px;  
 }
 
-#totales{
+#totales,#carritoVacio{
     text-align: center;
+}
+.botonComprar a{
+    color:black;
+}
+.botonComprar a:hover{
+    text-decoration: underline;
+}
+#carritoVacio a{
+    color:gray;
+}
+#carritoVacio a:hover{
+    color:rgb(238, 187, 33);
+    text-decoration: underline;
+}
+
+.invisible{
+    display:none;
+}
+/* estilos de finalizar compra*/
+.tituloFin{
+    font-size: 22px;
+    text-align: center;
+}
+p{
+    text-align: center;
+    font-style: italic;
+    color: black;
+}
+/* Estilo general de los inputs */
+
+/* Estilo general para centrar el formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px; 
+    margin:auto;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #4d4d4d;
+    border-radius: 10px; 
+}
+
+
+input, select, textarea {
+    background-color: #333; 
+    color: #fff; 
+    border: 1px solid #444; 
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+
+input:focus, select:focus, textarea:focus {
+    border-color: rgb(238, 187, 33); 
+    outline: none; 
+}
+
+
+label {
+    color: #fff; 
+    margin-bottom: 5px;
+    display: block;
+    width: 100%;
 }
 
 
 
 
+/*footer*/
 footer{
     margin-top:auto ;
     text-align: center;

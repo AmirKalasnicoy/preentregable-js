@@ -1,4 +1,4 @@
-/* Toma un objeto producto o un objeto con al menos un ID y lo agrega al carrito */
+
 function agregarAlCarrito(producto){
     //Reviso si el producto está en el carrito.
     let memoria = JSON.parse(localStorage.getItem("peliculas"));
@@ -30,18 +30,22 @@ function agregarAlCarrito(producto){
 }
 //resta al carrito
 function restarAlCarrito(producto){
-    let memoria = JSON.parse(localStorage.getItem("peliculas"));  // 
+    let memoria = JSON.parse(localStorage.getItem("peliculas")); 
+    let cantidadProductoFinal=0;
     const indiceProducto = memoria.findIndex(pelicula => pelicula.id === producto.id)
-    if(memoria[indiceProducto].cantidad === 1){
-        memoria.splice(indiceProducto,1);
-        localStorage.setItem("peliculas", JSON.stringify(memoria));
-        actualizarNumeroCarrito();
-}else{
-    memoria[indiceProducto].cantidad--;
+    let nuevaMemoria=memoria;
+    nuevaMemoria[indiceProducto].cantidad--;
+    cantidadProductoFinal=nuevaMemoria[indiceProducto].cantidad;
+
+    if (cantidadProductoFinal===0){
+        nuevaMemoria.splice(indiceProducto,1)
+    };
+    localStorage.setItem("peliculas",JSON.stringify(nuevaMemoria))
+    actualizarNumeroCarrito();
+    return cantidadProductoFinal;
 }
-localStorage.setItem("peliculas", JSON.stringify(memoria));
-actualizarNumeroCarrito();
-}
+
+
 
 //agarra una pelicula y le agrega cantidad 1 y lo devuelve
 function getNuevoProductoParaMemoria(producto){
@@ -53,8 +57,21 @@ function getNuevoProductoParaMemoria(producto){
 //funcion para actualizar el numero del carrito
 const cuentaCarritoElement=document.getElementById("cuentaCarrito")
 function actualizarNumeroCarrito(){
+    let cuenta=0;
     const memoria=JSON.parse(localStorage.getItem("peliculas"))
-    const cuenta=memoria.reduce((acum,actual)=>acum+actual.cantidad,0);
-    cuentaCarritoElement.innerText=cuenta;
+    if(memoria && memoria.length>0){
+        cuenta=memoria.reduce((acum,actual)=>acum+actual.cantidad,0);
+        return cuentaCarritoElement.innerText=cuenta;
+    }else{
+        cuentaCarritoElement.innerText=0;
+    }
+    
 }
+
+
+function reiniciarCarrito(){
+    localStorage.removeItem("peliculas");
+    actualizarNumeroCarrito();
+}
+
 actualizarNumeroCarrito();

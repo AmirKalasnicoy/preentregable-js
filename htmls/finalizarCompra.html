@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <script defer src="../java-script/carrito.js"></script>
+    <script defer src="../java-script/finalizarCompra.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Pelisflix - Finalizar Compra</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">
+                <img src="../img/logo.png" class="logo" alt="Logo de la página">
+            </a>
+            <div>
+                <a href="">Películas</a>
+                <a href="">Series</a>
+                <a href="../carrito.html">
+                    <img src="../img/iconos/compra.png" alt="Carrito de compras"><span id="cuentaCarrito">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <h3 class="tituloFin">Ingrese datos para que su envio le llegue</h3>
+    <p>Recordá que la persona registrada deberá coincidir con los datos del titular del medio de pago elegido.</p>
+    <form>
+        <label for="email">E-Mail</label>
+        <input type="email"  name="email" placeholder="E-Mail">
+
+        <label for="nombre">Nombre</label>
+        <input type="text"  name="nombre" placeholder="Nombre">
+    
+        <label for="Apellido">Apellido</label>
+        <input type="text"  name="apellido" placeholder="Apellido">
+
+        <label for="number">Numero de Telefono</label>
+        <input type="number" name="numero" placeholder="Numero de Telefono">
+
+        <label for="localidad">Localidad</label>
+        <input type="text" id="localidad" name="localidad" placeholder="Ingrese su localidad">
+
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" name="ciudad" placeholder="Ingrese su ciudad">
+    
+        <label for="direccion">Dirección</label>
+        <input type="text" name="direccion" placeholder="Dirección">
+
+
+        <label for="Postal">Codigo Postal</label>
+        <input type="number" name="postal" placeholder="Codigo Postal">
+    
+        <!-- Añade más inputs según sea necesario -->
+    
+        <button type="submit">Finalizar Compra</button>
+    </form>
+    
+    
+    
+    <footer>
+        <p>Derechos reservados por Amir Kalasnicoy</p>
+    </footer>
+</body>
+</html>
