@@ -7,7 +7,7 @@ async function obtenerProductos() {
             throw new Error(`Error al cargar productos: ${response.status}`);
         }
         const peliculas = await response.json();
-        crearTarjetasInicio(peliculas); // Aquí pasas las películas correctamente
+        crearTarjetasInicio(peliculas); 
     } catch (error) {
         console.error("Error al cargar productos:", error);
     }

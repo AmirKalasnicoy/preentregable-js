@@ -20,9 +20,7 @@ obtenerProductos();
 
 function crearTarjetasInicio(peliculas) {
     const productosEnCarrito = JSON.parse(localStorage.getItem("peliculas")) || [];
-    
-    contenedorTarjetas.innerHTML = "";  // Limpiar el contenedor antes de agregar productos
-    
+    contenedorTarjetas.innerHTML = "";  
     productosEnCarrito.forEach(productoEnCarrito => {
         const producto = peliculas.find(p => p.id === productoEnCarrito.id);
         if (producto) {
@@ -44,9 +42,9 @@ function crearTarjetasInicio(peliculas) {
             nuevaPelicula.getElementsByTagName("button")[0].addEventListener("click", () => {
                 const nuevaCantidad = restarAlCarrito(producto);
                 if (nuevaCantidad > 0) {
-                    nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; // Actualiza la cantidad mostrada
+                    nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; 
                 } else {
-                    // Si la cantidad es 0, elimina la tarjeta del producto del DOM
+                    
                     nuevaPelicula.remove();
                 }
                 actualizarTot();
@@ -55,7 +53,7 @@ function crearTarjetasInicio(peliculas) {
             // Sumar producto
             nuevaPelicula.getElementsByTagName("button")[1].addEventListener("click", () => {
                 const nuevaCantidad = agregarAlCarrito(producto);
-                nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; // Actualiza la cantidad mostrada
+                nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; 
                 actualizarTot();
             });
         }
