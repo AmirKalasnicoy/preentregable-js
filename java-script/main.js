@@ -2,9 +2,12 @@ const contenedorTarjetas=document.getElementById("peliculasContainer");
 
 async function obtenerProductos() {
     try {
-        const response = await fetch('preentregable-js/json/productos.json'); 
-        const peliculas = await response.json(); 
-        crearTarjetasInicio(peliculas); 
+        const response = await fetch('./json/productos.json');
+        if (!response.ok) {
+            throw new Error(`Error al cargar productos: ${response.status}`);
+        }
+        const peliculas = await response.json();
+        crearTarjetasInicio(peliculas); // Aquí pasas las películas correctamente
     } catch (error) {
         console.error("Error al cargar productos:", error);
     }
@@ -12,12 +15,13 @@ async function obtenerProductos() {
 
 obtenerProductos();
 
+
 function crearTarjetasInicio(peliculas) {
     peliculas.forEach(producto => {
         const nuevaPelicula = document.createElement("div");
         nuevaPelicula.classList = "tarjeta-pelicula";
         nuevaPelicula.innerHTML = `
-            <img src="preentregable-js/img/peliculas/${producto.id}.png">
+            <img src="./img/peliculas/${producto.id}.png">
             <h3>${producto.nombre}</h3>
             <p>${producto.precio} $</p>
             <button>Agregar al carrito</button>
@@ -28,7 +32,6 @@ function crearTarjetasInicio(peliculas) {
     });
 }
 
-crearTarjetasInicio(peliculas);
 
 
 

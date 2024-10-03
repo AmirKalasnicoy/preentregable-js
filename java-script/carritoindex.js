@@ -8,7 +8,7 @@ const totalesElement=document.getElementById("totales")
 
 async function obtenerProductos() {
     try {
-        const response = await fetch('preentregable-js/json/productos.json');
+        const response = await fetch('../json/productos.json'); 
         const peliculas = await response.json(); 
         crearTarjetasInicio(peliculas); 
     } catch (error) {
@@ -18,9 +18,10 @@ async function obtenerProductos() {
 
 obtenerProductos();
 
-
 function crearTarjetasInicio(peliculas) {
     const productosEnCarrito = JSON.parse(localStorage.getItem("peliculas")) || [];
+    
+    contenedorTarjetas.innerHTML = "";  // Limpiar el contenedor antes de agregar productos
     
     productosEnCarrito.forEach(productoEnCarrito => {
         const producto = peliculas.find(p => p.id === productoEnCarrito.id);
@@ -28,34 +29,42 @@ function crearTarjetasInicio(peliculas) {
             const nuevaPelicula = document.createElement("div");
             nuevaPelicula.classList = "tarjeta-producto";
             nuevaPelicula.innerHTML = `
-                <img src="preentregable-js/img/peliculas/${producto.id}.png">
+                <img src="../img/peliculas/${producto.id}.png">
                 <h3>${producto.nombre}</h3>
                 <p>${producto.precio} $</p>
                 <div>
                     <button>-</button>
-                    <span class="cantidad">${productoEnCarrito.cantidad}</span>
+                    <span class="cantidad">${productoEnCarrito.cantidad}</span> <!-- Muestra la cantidad -->
                     <button>+</button>
                 </div>
             `;
             contenedorTarjetas.appendChild(nuevaPelicula);
 
+            // Restar producto
             nuevaPelicula.getElementsByTagName("button")[0].addEventListener("click", () => {
-                restarAlCarrito(producto);
-                crearTarjetasInicio(peliculas); 
+                const nuevaCantidad = restarAlCarrito(producto);
+                if (nuevaCantidad > 0) {
+                    nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; // Actualiza la cantidad mostrada
+                } else {
+                    // Si la cantidad es 0, elimina la tarjeta del producto del DOM
+                    nuevaPelicula.remove();
+                }
                 actualizarTot();
             });
 
+            // Sumar producto
             nuevaPelicula.getElementsByTagName("button")[1].addEventListener("click", () => {
-                agregarAlCarrito(producto);
+                const nuevaCantidad = agregarAlCarrito(producto);
+                nuevaPelicula.querySelector(".cantidad").innerText = nuevaCantidad; // Actualiza la cantidad mostrada
                 actualizarTot();
             });
         }
     });
+
     actualizarTot();
     revisarMensajeInvicible();
     actualizarNumeroCarrito();
 }
-
 
 
 
