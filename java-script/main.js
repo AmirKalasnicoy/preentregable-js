@@ -3,12 +3,10 @@ const contenedorTarjetas=document.getElementById("peliculasContainer");
 async function obtenerProductos() {
     try {
         const response = await fetch('./json/productos.json');
-
         if (!response.ok) {
             console.error(`Error al cargar productos: ${response.status}`);
             return; // Salir de la función si hubo un error
         }
-
         const peliculas = await response.json();
         crearTarjetasInicio(peliculas); // Solo se ejecuta si no hubo errores
     } catch (error) {
