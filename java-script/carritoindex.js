@@ -8,7 +8,7 @@ const totalesElement=document.getElementById("totales")
 
 async function obtenerProductos() {
     try {
-        const response = await fetch('../json/productos.json');
+        const response = await fetch('preentregable-js/json/productos.json');
         const peliculas = await response.json(); 
         crearTarjetasInicio(peliculas); 
     } catch (error) {
